@@ -1,0 +1,51 @@
+{% extends 'theme/Practice1.html' %} {% load static %} {% block head %}
+<title>Diet Plan</title>
+{% endblock head %} {% block body %}
+
+    <h1>Data Table</h1>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Fat</th>
+                <th>Protein</th>
+                <th>Calories</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Retrieve data from localStorage
+        var storedData = localStorage.getItem('tableData');
+        if (storedData) {
+            var data = JSON.parse(storedData);
+
+            // Get table body element
+            var tbody = document.querySelector('#data-table tbody');
+
+            // Create table rows
+            data.forEach(function(item) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.fat}</td>
+                    <td>${item.protein}</td>
+                    <td>${item.calories}</td>
+                    <td>${item.quantity}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Optionally clear the stored data
+            localStorage.removeItem('tableData');
+        } else {
+            console.log('No data found.');
+        }
+    </script>
+{% endblock body %}
+
+</html>
